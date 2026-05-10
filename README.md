@@ -1,8 +1,10 @@
 # Quill 轻量笔记 — 轻量知识管理与代码片段工具
 
 > 基于 Tauri v2 + Vue 3 构建的跨平台极速桌面笔记软件
-> 
-> 最后更新：2026-04-13 (v1.6)
+>
+> 最后更新：2026-05-10 (v1.6.2)
+
+[![Build and Release](https://github.com/Mingjw1/quill/actions/workflows/build.yml/badge.svg)](https://github.com/Mingjw1/quill/actions/workflows/build.yml)
 
 ## 📖 产品简介
 
@@ -40,8 +42,14 @@
 ## 📥 下载与安装
 
 您可以直接前往本项目的 **[Releases 页面](../../releases)** 下载最新版本的安装包：
-- **Windows**: 下载 `Quill_x.x.x_x64-setup.exe` 直接安装。
-- **macOS**: 下载 `Quill_x.x.x_x64.dmg` 拖拽安装（如遇安全提示请在系统偏好设置中放行）。
+
+| 平台 | 安装包 | 说明 |
+|------|--------|------|
+| **Windows** | `Quill_x.x.x_x64-setup.exe` | 双击安装，支持自动更新 |
+| **macOS** | `Quill_x.x.x_x64.dmg` | 拖拽安装（如遇安全提示请在系统偏好设置中放行） |
+| **Linux** | `Quill_x.x.x_amd64.deb` 或 `Quill_x.x.x_amd64.AppImage` | deb 适用于 Debian/Ubuntu 系；AppImage 适用于所有发行版 |
+
+> **版本号说明**: 安装包文件名中已包含版本号（如 `Quill_1.6.2_amd64.deb`），应用窗口标题和关于页也同步显示当前版本。
 
 *如果您是开发者，也可以参考下方的「快速开始」自行编译源码。*
 
@@ -60,15 +68,18 @@ npm run build        # 构建 Web 版本
 # 2. Tauri 桌面端开发与打包（需安装 Rust 环境）
 npm run tauri dev    # 启动 Tauri 桌面端开发调试
 
-# Windows 用户打包:
-# 会在 src-tauri/target/release/bundle/msi 下生成 .msi 安装包
-# 和 src-tauri/target/release/bundle/nsis 下的独立 .exe 文件
-npm run tauri build
+# Linux 打包:
+# 会在 src-tauri/target/release/bundle/deb/ 下生成 .deb 安装包
+# 和 src-tauri/target/release/bundle/appimage/ 下的 .AppImage 文件
+npx tauri build
 
-# macOS 用户打包:
-# 会在 src-tauri/target/release/bundle/macos 下生成 .app 应用程序
-# 和 src-tauri/target/release/bundle/dmg 下的 .dmg 安装镜像
-npm run tauri build
+# Windows 打包 (需在 Windows 环境下):
+# 会在 src-tauri/target/release/bundle/nsis/ 下生成 .exe 安装包
+npx tauri build
+
+# macOS 打包 (需在 macOS 环境下):
+# 会在 src-tauri/target/release/bundle/dmg/ 下生成 .dmg 安装镜像
+npx tauri build
 ```
 
 ### 环境要求
@@ -76,6 +87,15 @@ npm run tauri build
 - Rust（仅 Tauri 桌面版需要）：`curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
 - **Windows 打包要求**：需要安装 [C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) 和 [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/)。
 - **macOS 打包要求**：需要安装 Xcode Command Line Tools (`xcode-select --install`)。
+- **Linux 打包要求**（Debian/Ubuntu）：
+  ```bash
+  sudo apt-get install -y \
+    libwebkit2gtk-4.1-dev \
+    libgtk-3-dev \
+    librsvg2-dev \
+    libssl-dev \
+    pkg-config
+  ```
 
 ## 📁 项目结构
 
