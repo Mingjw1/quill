@@ -1,0 +1,217 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap');
+
+:root {
+  /* Font size (adjustable) */
+  --app-font-size: 14px;
+
+  /* Background */
+  --bg: #faf9f7;
+  --surface: #ffffff;
+  --surface-hover: #f5f3f0;
+  --surface-active: #eee;
+
+  /* Border */
+  --border: #e8e5e0;
+  --border-light: #f0ede8;
+
+  /* Text */
+  --text-primary: #1a1814;
+  --text-secondary: #6b6560;
+  --text-muted: #a09890;
+
+  /* Accent */
+  --accent: #c45d3a;
+  --accent-light: #f8f0ec;
+
+  /* Functional */
+  --danger: #c44a3a;
+  --danger-light: #fdf0ef;
+  --success: #4a8c6f;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(26,24,20,0.04);
+  --shadow-md: 0 4px 12px rgba(26,24,20,0.06);
+  --shadow-lg: 0 8px 32px rgba(26,24,20,0.08);
+  --shadow-xl: 0 16px 48px rgba(26,24,20,0.12);
+
+  /* Radius */
+  --radius: 8px;
+  --radius-lg: 12px;
+}
+
+/* Dark Theme */
+:root[data-theme="dark"] {
+  --bg: #1e1e1e;
+  --surface: #252526;
+  --surface-hover: #2d2d30;
+  --surface-active: #3e3e42;
+  --border: #3e3e42;
+  --border-light: #333333;
+  --text-primary: #d4d4d4;
+  --text-secondary: #9cdcfe;
+  --text-muted: #808080;
+  --accent: #c45d3a;
+  --accent-light: #3e2621;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.5);
+  --shadow-xl: 0 16px 48px rgba(0,0,0,0.6);
+}
+
+/* Eye Care Green Theme */
+:root[data-theme="eye-care"] {
+  --bg: #cce8cf;
+  --surface: #e3f2e4;
+  --surface-hover: #b5d6b8;
+  --surface-active: #a1c7a5;
+  --border: #a1c7a5;
+  --border-light: #b5d6b8;
+  --text-primary: #2d4c31;
+  --text-secondary: #4a7551;
+  --text-muted: #6b9e73;
+  --accent: #4a8c6f;
+  --accent-light: #d6ebd9;
+}
+
+/* Sakura Pink Theme */
+:root[data-theme="sakura"] {
+  --bg: #fcf8f9;
+  --surface: #fffafb;
+  --surface-hover: #fcedf1;
+  --surface-active: #fae1e7;
+  --border: #fae1e7;
+  --border-light: #fcedf1;
+  --text-primary: #544448;
+  --text-secondary: #7d676d;
+  --text-muted: #a38d93;
+  --accent: #d8839a;
+  --accent-light: #f9e6ea;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text-primary);
+  height: 100vh;
+  overflow: hidden;
+  font-size: var(--app-font-size);
+  line-height: 1.6;
+}
+
+::selection {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+#app {
+  height: 100vh;
+}
+
+/* Animations */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+@keyframes toastIn {
+  from { transform: translateX(-50%) translateY(80px); opacity: 0; }
+  to { transform: translateX(-50%) translateY(0); opacity: 1; }
+}
+
+@keyframes toastOut {
+  from { transform: translateX(-50%) translateY(0); opacity: 1; }
+  to { transform: translateX(-50%) translateY(80px); opacity: 0; }
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Code Editor with Syntax Highlighting Overlay */
+.code-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background-color: #282c34; /* Match atom-one-dark background */
+}
+
+.code-editor-container {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.code-highlight-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 16px;
+  overflow: hidden; /* Hide scrollbars, let textarea manage scrolling */
+  pointer-events: none; /* Pass clicks through to textarea */
+}
+
+.code-highlight-bg code {
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  display: block;
+  padding: 0 !important; /* Reset highlight.js default padding */
+  background: transparent !important; /* Reset highlight.js default background */
+}
+
+.code-textarea {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  margin: 0;
+  border: none;
+  resize: none;
+  outline: none;
+  background: transparent;
+  color: transparent; /* Hide actual text, show only caret */
+  caret-color: #fff;  /* Make cursor visible on dark background */
+  font-family: 'Fira Code', 'Consolas', monospace;
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  z-index: 1;
+}
+
+.code-textarea::selection {
+  background: rgba(255, 255, 255, 0.2);
+  color: transparent;
+}

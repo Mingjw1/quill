@@ -107,7 +107,7 @@
         <div class="uc-section">
           <div class="uc-section-title">关于</div>
           <div class="uc-about">
-            <span class="uc-version">Quill v1.6.0</span>
+            <span class="uc-version">Quill v{{ version }}</span>
             <span class="uc-desc">轻量笔记工具 · Tauri + Vue 3</span>
             <span class="uc-author">作者：Mingjw1</span>
             <a href="javascript:void(0)" @click="openGithub" class="uc-github">GitHub 源码</a>
@@ -126,6 +126,7 @@ import { store, hasGlobalPassword, removeGlobalPassword } from '../stores/useSto
 
 const showPanel = ref(false)
 
+const version = typeof __APP_VERSION__ !== 'undefined' ? __APP_VERSION__ : 'unknown'
 const userName = ref(localStorage.getItem('quill-username') || '')
 const fontSize = ref(localStorage.getItem('quill-fontsize') || 'medium')
 const theme = ref(localStorage.getItem('quill-theme') || 'light')
