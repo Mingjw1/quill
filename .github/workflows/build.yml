@@ -6,6 +6,9 @@ on:
       - 'v*'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     strategy:
@@ -13,13 +16,10 @@ jobs:
         include:
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            bundle: [deb, appimage]
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            bundle: [nsis]
           - os: macos-latest
             target: x86_64-apple-darwin
-            bundle: [dmg]
 
     runs-on: ${{ matrix.os }}
 
@@ -68,3 +68,4 @@ jobs:
             - **macOS**: 下载 `Quill_*_x64.dmg` 拖拽安装
             - **Linux**: 下载 `Quill_*_amd64.deb` 或 `Quill_*_amd64.AppImage`
           releaseDraft: true
+          tauriScript: npx tauri
